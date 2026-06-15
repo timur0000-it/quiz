@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    {% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endblock %}
+    {% block title %} <title>Главная Стрница </title> {% endblock %}
+    
+</head>
+<body>
+    <header>
+        {% if request.user.is_authenticated %}
+        Пользователь: {{request.user}}
+        <a href="{% url 'users:signout' %}">Signout</a>
+            {% if request.user.is_teacher %}
+            <a href="{% url 'chatting:create_room' %}">Add room</a>
+            <a href="{% url 'chatting:teacher_cabinet' %}">My cabinet</a>
+            {% endif %}
+        <a href="{% url 'chatting:all_rooms' %}">All rooms</a>
+        {% else %}
+        <a href="{% url 'users:signin' %}">Signin</a>
+        <a href="{% url 'users:signup' %}">Signup</a>
+        {% endif %}
+    </header>
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>

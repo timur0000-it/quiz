@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} <title>All Products</title>  {% endblock %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="title">Список комнат</div>
+    <form method="post" class="search-form">
+        {% csrf_token %}
+        <input name="title" type="text" placeholder="Поиск комнаты...">
+        <button>Найти</button>
+    </form>
+    <div class="rooms-grid">
+    {% for room in rooms %}
+        <div class="rooms">
+            <div class="product-title">Комната: {{ room.title }} </div>
+            <div class="product-seller">Учитель: {{ room.teacher }}</div>
+            <h4>Тема: {{room.category}}</h4>
+            <h4>Сложность: {{room.dificulty}}</h4>
+            <p>Количество участиников в комнате: {{ room.students.count }} </p>
+            <a href="{% url 'chatting:chat_room' room.id %}">Войти</a>
+        </div>
+        {% empty %}
+        <div class="empty">Пока нет комнат</div>
+    {% endfor %}
+    </div>
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

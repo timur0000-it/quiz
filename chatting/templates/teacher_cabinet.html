@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Статистика ваших комнат</title>  {% endblock %}
+
+{% block content %}
+    <div class="teacher-cabinet">
+        <h2>Статистика ваших комнат</h2>
+    <div class="rooms-list">
+        {% for room in rooms %}
+    <div class="room-card">
+        
+        <h3>Комната: {{room.title}}</h3> 
+        <h3>Количество участиников в комнате: {{ room.students.count }}</h3>
+        <h4>Тема: {{room.category}}</h4>
+        <h4>Сложность: {{room.dificulty}}</h4>
+        <div class="room-actions">
+        <a href="{% url 'chatting:delete_room' room.id %}">Удалить</a>
+        <a href="{% url 'chatting:chat_room' room.id %}">Войти</a>
+        </div>
+
+    </div>
+    {% empty %}
+        <div class="empty">Пока нет комнат</div>
+    {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

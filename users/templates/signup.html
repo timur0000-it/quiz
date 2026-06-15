@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block title %} <title>Signup</title>  {% endblock %}
+
+{% block content %}
+        <div class="auth-box">
+    <div class="title">Регистрация</div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field}}
+            </div>
+
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    {{error}}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <button>Зарегистрироваться</button>
+    </form>
+
+    <div class="switch-link">
+        <a href="{% url 'users:signin' %}">Уже есть аккаунт? Войти</a>
+    </div>
+</div>
+{% endblock %}

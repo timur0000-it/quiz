@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} <title>Code</title>  {% endblock %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endblock %}
+
+{% block content %}
+<div class="auth-box">
+    <div class="title">Code</div>
+    <a href="{% url 'users:re_send_code' %}">Новый код</a>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                
+                {{field}}
+            </div>
+
+        {% endfor %}
+        {% if error %}
+            <div class="alert alert-danger">
+                    {{error}}
+                </div>
+        {% endif %}
+        <button>Проверить</button>
+    </form>
+    </div>
+    
+{% endblock %}

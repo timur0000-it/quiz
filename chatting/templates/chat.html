@@ -1,0 +1,58 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} <title>Signin</title>  {% endblock %}
+
+{% block content %}
+
+<div class="chat-container">
+    <div class="left-box">
+        <div class="room-info">
+        <input id="username" type="text" value="{{request.user.username}}" hidden>
+        <input id="user-id" type="text" value="{{request.user.id}}" hidden>
+        <input id="room-id" type="text" value="{{room.id}}" hidden>
+        <input id="room-question" type="text" value="{{room.question}}" hidden>
+        <h2>Комната: {{room.title}}</h2>
+        <h2>Тема: {{room.category}}</h2>
+        <h2>Сложность: {{room.dificulty}}</h2>
+    </div>
+        {% if request.user == room.teacher %}
+        <div class="teacher-box">
+        <h3>Отправить новый вопрос</h3>
+        <button id="send-question">Сгенирировать новый вопрос</button>
+    </div>
+    {% endif %}
+    <div class="score">
+        <h2>Топ участники</h2>
+        {% for answer in top_answers %}
+        <div class="score-item">
+        <h3>{{answer.student.username}}</h3>
+        <h3>Правильные ответы:{{answer.right}} из {{answer.total_count}} </h3>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+    
+       <div class="center-box">
+        
+        <div class="task-log"> <h2>Выбираем следующий вопрос</h2></div>
+        <div class="answer-box" hidden>
+    </div>
+       </div>
+    <div class="right-box">
+        <div class="chat-box">
+        <div class="status">Подключение к серверу... </div>
+        <div class="messages"></div>
+    <div class="chat-log"></div>
+    <div class="controlls">
+        <input type="text" id="message-input">
+        <button class="send-btn">Отправить</button>
+    </div>
+    </div>
+    </div>
+    
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}

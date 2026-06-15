@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Add Product</title>  {% endblock %}
+
+
+{% block content %}
+
+<div class="auth-box">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field}}
+            </div>
+        {% endfor %}
+         {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{error}}
+            </div>
+            {% endfor %}
+            <select name="cat" id="category">
+
+            </select>
+            <select name="dificulty" id="dificulty">
+                <option value="easy" selected>easy</option>
+                <option value="medium">medium</option>
+                <option value="hard">hard</option>
+            </select>
+        <button>Создать</button>
+    </form>
+    {{errors}}
+        </div>
+        <script>
+            async function getCategorys(){
+    console.log("Отправка запроса");
+    try {
+        const response = await fetch("https://opentdb.com/api_category.php")
+        const data = await response.json()
+        renderCategorys(data)
+        
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    getCategorys();
+})
+
+function renderCategorys(categorys) {
+    
+    const category = document.getElementById("category")
+    // console.log(posts);
+
+    for (let i = 0; i < categorys.trivia_categories.length; i++) {
+        const post = categorys.trivia_categories[i];
+        console.log(post);
+
+        const option = document.createElement('option')
+ 
+        option.value=post.id
+        option.textContent=post.name
+
+        
+        category.appendChild(option)
+        
+    }
+}
+        </script>
+{% endblock %}
