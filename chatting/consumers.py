@@ -11,14 +11,16 @@ def update_room(room_id,user_id):
     user = CustomerUser.objects.filter(id=user_id).first()
     room = Room.objects.filter(id=room_id).first()
     if user not in room.students.all():
+        print('зашел')
         room.students.add(user)
     else:
+        print('вышел')
+
         room.students.remove(user)
 @sync_to_async
 def send_answer(room_id,answer,user_id):
     user = CustomerUser.objects.filter(id=user_id).first()
     room = Room.objects.filter(id=room_id).first()
-    print(user_id)
     log,created = Answer.objects.get_or_create(student=user,room=room)
     log.total_count += 1
     log.right += answer

@@ -44,7 +44,11 @@
 
         let answers = post.incorrect_answers
         answers.push(post.correct_answer)
+        console.log(answers);
+        
         answers.sort()
+        console.log(answers);
+        
          for (let i = 0; i < answers.length; i++) {
             const input_radio = document.createElement('input')
             const label = document.createElement('label')
@@ -64,6 +68,7 @@
         h2.textContent = decodeHTML(post.question)
         input.setAttribute('id','right_answer')
         input.value = decodeHTML(post.correct_answer)
+        console.log(input.value);
         input.hidden = true
         task_log.append(h2)
         answer_box.hidden = false
@@ -110,15 +115,14 @@
                 renderPosts(data.data)
                 messagesDiv.innerHTML = ''
             }
-            else if (data.user){
-                chatDiv.innerHTML = `Пользователь: ${data.user}  отправил: ${data.message}`
+            else if(data.user){
+                chatDiv.innerHTML = `${data.user}: ${data.message}`
                 chat_log.appendChild(chatDiv)
                 chat_log.scrollTop = chat_log.scrollHeight
             }
             else{
-            chatDiv.innerHTML = `${data.message}`
-            chat_log.appendChild(chatDiv)
-            chat_log.scrollTop = chat_log.scrollHeight
+                messagesDiv.textContent = ''
+                messagesDiv.textContent = `${data.message}`
             }
         }
         
@@ -132,6 +136,7 @@
 
             let point = 1
             if(!selectedRadio){
+                messagesDiv.textContent = ''
                 messagesDiv.textContent = 'Нужно выбрать 1 ответ'  
             }
             else{

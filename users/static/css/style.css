@@ -538,6 +538,20 @@ footer {
     font-size: 15px;
 }
 
+.teacher-box button:disabled {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    background: gray;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+.teacher-box button:disabled:hover {
+    background: gray;
+}
+
 .teacher-box button:hover {
     background: #1d4ed8;
 }
@@ -701,8 +715,9 @@ footer {
     display: flex;
     align-items: center;
     gap: 12px;
-
-    padding: 16px 18px;
+    padding-left: 5px;
+    height: 57px;
+    width: 320px;
     margin-bottom: 12px;
 
     background: #f8fafc;
